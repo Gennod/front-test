@@ -1,54 +1,40 @@
-# React + TypeScript + Vite
+# Тестовое задание
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Нужно было реализовать React компоненты, которые позволят редактировать структуру Model.
 
-Currently, two official plugins are available:
+## Реализованный функционал
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. **Структуры данных:**
+   - Определены интерфейсы `Param` (описание параметра) и `ParamValue` (значение параметра)
+   - Реализована основная структура `Model`, содержащая:
+     - `paramValues` - массив значений параметров
+     - `colors` - массив цветов (задел на будущее)
 
-## Expanding the ESLint configuration
+2. **Компонент ParamEditor:**
+   - Принимает props:
+     - `params` - массив параметров для отображения
+     - `model` - начальные значения параметров
+   - Поддерживает редактирование всех параметров одновременно
+   - Сохраняет состояние редактируемых значений
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+3. **Редактирование параметров:**
+   - Для каждого параметра создается input-поле типа text
+   - Поддерживается изменение значений через метод `handleChangeParams`
+   - При изменении значения обновляется внутреннее состояние компонента
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+4. **Получение данных:**
+   - Реализован метод `getModel()`, который возвращает:
+     - Все текущие значения параметров
+     - Цвета из исходной модели (без изменений)
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+5. **Пример использования:**
+   - Создан компонент `ParamEditorDemo` с:
+     - Примером набора параметров
+     - Примером начальных значений
+     - Кнопкой для вызова getModel()
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+## Особенности:
+- Работает только с текстовыми параметрами (input type="text")
+- Все параметры отображаются и редактируются одновременно
+- Состояние формы синхронизировано с внутренним состоянием компонента
+- Поддерживается расширение
